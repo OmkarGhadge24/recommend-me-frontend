@@ -23,7 +23,7 @@ const TopDeals = ({ lowestPricedProducts, getHref, formatPrice }) => {
               <p className="text-gray-600">{formatPrice(product.price)}</p>
               <a
                 className="text-blue-500 text-sm"
-                href={getHref(product.via)}
+                href={product.link}
                 target="_blank"
                 rel="noopener noreferrer"
               >

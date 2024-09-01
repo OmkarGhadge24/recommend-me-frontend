@@ -30,30 +30,6 @@ const App = () => {
         setLoading(false);
       });
   };
-  const getHref = (via) => {
-    switch (via) {
-      case "Amazon":
-        return "https://www.amazon.in";
-      case "Flipkart":
-        return "https://www.flipkart.com";
-      case "Snapdeal":
-        return "https://www.snapdeal.com";
-      case "Meesho":
-        return "https://www.meesho.com";
-      case "1mg":
-        return "https://www.1mg.com";
-      case "PharmEasy":
-        return "https://www.pharmeasy.in";
-      case "Zepto":
-        return "https://www.zeptonow.com";
-      case "Netmeds":
-        return "https://www.netmeds.com";
-      case "Nykaa":
-        return "https://www.nykaa.com";
-      default:
-        return "#";
-    }
-  };
 
   const findLowestPricedProducts = (products) => {
     const platforms = {};
@@ -89,13 +65,12 @@ const App = () => {
       />
       {loading && <Loader type={"cylon"} color={"#2563EB"} />}
       {!loading && searchType && products.length > 0 && (
-        <ProductList products={products} formatPrice={formatPrice} getHref={getHref} />
+        <ProductList products={products} formatPrice={formatPrice} />
       )}
       {!loading && lowestPricedProducts.length > 0 && (
         <TopDeals
           lowestPricedProducts={lowestPricedProducts}
           formatPrice={formatPrice}
-          getHref={getHref}
         />
       )}
     </div>
