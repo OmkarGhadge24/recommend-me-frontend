@@ -7,7 +7,11 @@ const SearchBar = ({ onSearch, handler }) => {
   const handleSearch = () => {
     if (query.trim()) {
       onSearch(query);
-      handler();
+      if (typeof handler === "function") {
+        handler();
+      } else {
+        console.error("Handler is not a function");
+      }
     } else {
       alert("Please enter a search query.");
     }
