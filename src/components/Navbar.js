@@ -1,16 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { FaInfoCircle, FaBars, FaTimes } from "react-icons/fa";
+import { LuMoonStar, LuSun } from "react-icons/lu";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../firebaseConfig";
 import { signOut } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import Model from "./Model";
+import { ThemeContext } from "../App";
 
 const Navbar = () => {
   const [isOpen, setOpen] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [user] = useAuthState(auth);
   const navigate = useNavigate();
+  const { theme, toggleTheme } = useContext(ThemeContext);
 
   const toggleDrawer = () => setDrawerOpen(!drawerOpen);
   const handleLogout = () => {
@@ -19,23 +22,35 @@ const Navbar = () => {
   };
 
   return (
-    <div className="py-4 px-6 flex items-center justify-between bg-gray-200 relative">
+    <div
+      className={`py-4 px-6 flex items-center justify-between ${
+        theme === "dark" ? "bg-gray-700" : "bg-gray-200"
+      } relative`}
+    >
       <h2 className="text-sm sm:text-md lg:text-xl font-semibold">
         Recommend Me
       </h2>
 
-      {/* Menu Button for small screens */}
-      <div className="md:hidden cursor-pointer" onClick={toggleDrawer}>
-        {drawerOpen ? (
-          <FaTimes className="text-xl" />
-        ) : (
-          <FaBars className="text-xl" />
-        )}
+      <div className="flex gap-4 items-center">
+        {/* Theme toggle icon */}
+        <button onClick={toggleTheme} className="text-xl">
+          {theme === "dark" ? <LuSun /> : <LuMoonStar />}
+        </button>
+
+        <div className="md:hidden cursor-pointer" onClick={toggleDrawer}>
+          {drawerOpen ? (
+            <FaTimes className="text-xl" />
+          ) : (
+            <FaBars className="text-xl" />
+          )}
+        </div>
       </div>
 
       {/* Drawer */}
       <div
-        className={`fixed inset-y-0 left-0 w-64 bg-gray-200 p-5 transition-transform transform ${
+        className={`fixed inset-y-0 left-0 w-64 ${
+          theme === "dark" ? "bg-gray-700" : "bg-gray-200"
+        } p-5 transition-transform transform ${
           drawerOpen ? "translate-x-0" : "-translate-x-full"
         } md:hidden z-50`}
       >
@@ -122,16 +137,26 @@ const Navbar = () => {
             About Recommend Me
           </h2>
           <p className="text-xs mb-2 md:text-base lg:text-lg md:mb-3">
-            <strong>Recommend Me</strong> is your go-to platform for personalized product recommendations. Our system analyzes data to provide the most relevant products for you, helping you make informed purchasing decisions.
+            <strong>Recommend Me</strong> is your go-to platform for
+            personalized product recommendations. Our system analyzes data to
+            provide the most relevant products for you, helping you make
+            informed purchasing decisions.
           </p>
           <p className="text-xs mb-2 md:text-base lg:text-lg md:mb-3">
-            Explore the latest in tech, fashion, home essentials, and more, curated just for you. Whether you're looking for a new gadget or stylish clothing, we've got you covered.
+            Explore the latest in tech, fashion, home essentials, and more,
+            curated just for you. Whether you're looking for a new gadget or
+            stylish clothing, we've got you covered.
           </p>
           <p className="text-xs mb-2 md:text-base lg:text-lg md:mb-3">
-            If you want to add products to your favorites, please <span className='text-blue-600'>log in</span>. Once logged in, you can easily view and manage all your favorite products in your profile.
+            If you want to add products to your favorites, please{" "}
+            <span className="text-blue-600">log in</span>. Once logged in, you
+            can easily view and manage all your favorite products in your
+            profile.
           </p>
           <p className="text-xs mb-2 md:text-base lg:text-lg md:mb-3">
-            <span className='font-bold'>Note: </span>It may take some time to collect the data, so please be patient while we find the best options for you.
+            <span className="font-bold">Note: </span>It may take some time to
+            collect the data, so please be patient while we find the best
+            options for you.
           </p>
         </div>
       </Model>

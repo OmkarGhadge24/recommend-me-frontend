@@ -8,7 +8,6 @@ const BackButton = () => {
   return (
     <div className="flex items-center mb-4 cursor-pointer" onClick={() => navigate(-1)}>
       <FaArrowLeft className="text-xl mr-2" />
-      <span className="text-lg">Back</span>
     </div>
   );
 };

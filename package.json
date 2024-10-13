@@ -18,7 +18,7 @@
     "autoprefixer": "^10.4.19",
     "chokidar": "^3.6.0",
     "core-js": "^3.37.1",
-    "firebase": "^10.14.0",
+    "firebase": "^10.14.1",
     "joi": "^17.13.3",
     "postcss": "^8.4.39",
     "react": "^18.0.0",

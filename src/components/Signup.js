@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth } from "../firebaseConfig";
 import { useNavigate } from "react-router-dom";
 import BackButton from "./BackButton";
+import { ThemeContext } from "../App";
 
 const Signup = () => {
   const [email, setEmail] = useState("");
@@ -10,6 +11,7 @@ const Signup = () => {
   const [username, setUsername] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  const { theme } = useContext(ThemeContext);
 
   const handleSignup = async (e) => {
     e.preventDefault();
@@ -24,7 +26,11 @@ const Signup = () => {
   };
 
   return (
-    <div className="w-full max-w-sm mx-auto mt-10 px-4 sm:px-6 md:px-8 lg:px-0">
+    <div
+      className={`w-full max-w-sm mx-auto mt-10 px-4 sm:px-6 md:px-8 lg:px-0 ${
+        theme === "dark" ? "bg-gray-800 text-white" : "bg-gray-100 text-black"
+      }`}
+    >
       <h2 className="text-2xl font-semibold mb-4 text-center">Sign Up</h2>
       <form onSubmit={handleSignup}>
         <input
@@ -32,23 +38,35 @@ const Signup = () => {
           value={username}
           onChange={(e) => setUsername(e.target.value)}
           placeholder="Username"
-          className="w-full border p-2 mb-4 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className={`w-full border p-2 mb-4 rounded-md focus:outline-none focus:ring-2 ${
+            theme === "dark"
+              ? "bg-gray-800 border-gray-700 text-white focus:ring-blue-500"
+              : "bg-white border-gray-300 focus:ring-blue-500"
+          }`}
         />
         <input
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           placeholder="Email"
-          className="w-full border p-2 mb-4 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className={`w-full border p-2 mb-4 rounded-md focus:outline-none focus:ring-2 ${
+            theme === "dark"
+              ? "bg-gray-800 border-gray-700 text-white focus:ring-blue-500"
+              : "bg-white border-gray-300 focus:ring-blue-500"
+          }`}
         />
         <input
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           placeholder="Password"
-          className="w-full border p-2 mb-4 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className={`w-full border p-2 mb-4 rounded-md focus:outline-none focus:ring-2 ${
+            theme === "dark"
+              ? "bg-gray-800 border-gray-700 text-white focus:ring-blue-500"
+              : "bg-white border-gray-300 focus:ring-blue-500"
+          }`}
         />
-        <button className="bg-blue-500 text-white px-4 py-2 w-full rounded-md hover:bg-blue-600">
+        <button className="bg-blue-500 text-white px-4 py-2 w-full rounded-md hover:bg-blue-600 mb-6">
           Sign Up
         </button>
       </form>
